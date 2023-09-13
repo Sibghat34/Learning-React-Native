@@ -14,6 +14,7 @@ export default function App() {
       ...currentCarsList,
       { text: input, id: Math.random().toString() },
     ]);
+    endAddCarHandler();
   }
 
   function deleteCarHandler(id) {
@@ -26,10 +27,14 @@ export default function App() {
     setModelVisibility(true);
   }
 
+  function endAddCarHandler() {
+    setModelVisibility(false);
+  }
+
   return (
     <View style={styles.appContainer}>
       <Button title="Add New Car" color="black" onPress={startAddCarHandler} />
-      <Input visible={modelvisibility} onAddCar={addCarHandler} />
+      <Input visible={modelvisibility} onAddCar={addCarHandler} onCancel={endAddCarHandler} />
       <View style={styles.listContainer}>
         <FlatList
           data={carsList}
