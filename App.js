@@ -1,6 +1,14 @@
 import { StatusBar } from "expo-status-bar";
 import { useState } from "react";
-import { StyleSheet, Text, View, Button, TextInput } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Button,
+  TextInput,
+  ScrollView,
+  FlatList,
+} from "react-native";
 
 export default function App() {
   const [input, setInput] = useState("");
@@ -10,7 +18,7 @@ export default function App() {
     setInput(input);
   }
   function addCarHandler() {
-    setCarsList((currentCarsList) => [...currentCarsList, input]);
+    setCarsList((currentCarsList) => [...currentCarsList, {text: input , id: Math.random().toString()}]);
   }
 
   return (
@@ -24,13 +32,19 @@ export default function App() {
         <Button title="ADD" onPress={addCarHandler} />
       </View>
       <View style={styles.listContainer}>
-        {carsList.map((car) => (
-          <View style={styles.listItems} key={car}>
-            <Text>
-              {car}
-            </Text>
-          </View>
-        ))}
+        <FlatList
+          data={carsList}
+          renderItem={(itemData) => {
+            return (
+              <View style={styles.listItems}>
+                <Text>{itemData.item.text}</Text>
+              </View>
+            );
+          }}
+          keyExtractor={(item , index) =>{
+            return item.id;
+          }}
+        />
       </View>
     </View>
   );
