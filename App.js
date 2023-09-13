@@ -1,33 +1,42 @@
 import { StatusBar } from "expo-status-bar";
 import { useState } from "react";
-import {
-  StyleSheet,
-  View,
-  FlatList,
-} from "react-native";
+import { StyleSheet, View, FlatList } from "react-native";
 
 import Items from "./components/Items";
 import Input from "./components/Input";
 
-
 export default function App() {
   const [carsList, setCarsList] = useState([]);
 
-
   function addCarHandler(input) {
-    setCarsList((currentCarsList) => [...currentCarsList, {text: input , id: Math.random().toString()}]);
+    setCarsList((currentCarsList) => [
+      ...currentCarsList,
+      { text: input, id: Math.random().toString() },
+    ]);
+  }
+
+  function deleteCarHandler(id) {
+    setCarsList((currentCarsList) => {
+      return currentCarsList.filter((car) => car.id !== id);
+    });
   }
 
   return (
     <View style={styles.appContainer}>
-      <Input onAddCar = {addCarHandler} />
+      <Input onAddCar={addCarHandler} />
       <View style={styles.listContainer}>
         <FlatList
           data={carsList}
           renderItem={(itemData) => {
-            return <Items text = {itemData.item.text} />;
+            return (
+              <Items
+                text={itemData.item.text}
+                id={itemData.item.id}
+                onDeleteCar={deleteCarHandler}
+              />
+            );
           }}
-          keyExtractor={(item , index) =>{
+          keyExtractor={(item, index) => {
             return item.id;
           }}
         />
@@ -42,9 +51,8 @@ const styles = StyleSheet.create({
     paddingTop: 70,
     paddingHorizontal: 20,
   },
-  
+
   listContainer: {
     flex: 4,
   },
-
 });

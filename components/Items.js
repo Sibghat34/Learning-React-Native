@@ -1,10 +1,12 @@
-import { StyleSheet, View, Text } from "react-native";
+import { StyleSheet, View, Text, Pressable } from "react-native";
 
 function Items(props) {
   return (
+    <Pressable onPress={props.onDeleteCar.bind(this, props.id)}>
     <View style={styles.listItems}>
       <Text>{props.text}</Text>
     </View>
+    </Pressable>
   );
 }
 
