@@ -1,12 +1,13 @@
 import { StatusBar } from "expo-status-bar";
 import { useState } from "react";
-import { StyleSheet, View, FlatList } from "react-native";
+import { StyleSheet, View, FlatList, Button } from "react-native";
 
 import Items from "./components/Items";
 import Input from "./components/Input";
 
 export default function App() {
   const [carsList, setCarsList] = useState([]);
+  const [modelvisibility, setModelVisibility] = useState(false);
 
   function addCarHandler(input) {
     setCarsList((currentCarsList) => [
@@ -21,9 +22,14 @@ export default function App() {
     });
   }
 
+  function startAddCarHandler() {
+    setModelVisibility(true);
+  }
+
   return (
     <View style={styles.appContainer}>
-      <Input onAddCar={addCarHandler} />
+      <Button title="Add New Car" color="black" onPress={startAddCarHandler} />
+      <Input visible={modelvisibility} onAddCar={addCarHandler} />
       <View style={styles.listContainer}>
         <FlatList
           data={carsList}
