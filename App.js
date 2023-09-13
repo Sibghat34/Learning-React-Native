@@ -3,8 +3,6 @@ import { useState } from "react";
 import {
   StyleSheet,
   View,
-  Button,
-  TextInput,
   FlatList,
 } from "react-native";
 

@@ -18,6 +18,7 @@ function Input(props) {
         style={styles.inputText}
         placeholder="Add your dream car"
         onChangeText={carInputHandler}
+        value={input}
       />
       <Button title="ADD" onPress={addCarHandler} />
     </View>
