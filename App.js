@@ -24,7 +24,13 @@ export default function App() {
         <Button title="ADD" onPress={addCarHandler} />
       </View>
       <View style={styles.listContainer}>
-        {carsList.map((car) => <Text key={car}>{car}</Text>)}
+        {carsList.map((car) => (
+          <View style={styles.listItems} key={car}>
+            <Text>
+              {car}
+            </Text>
+          </View>
+        ))}
       </View>
     </View>
   );
@@ -52,5 +58,11 @@ const styles = StyleSheet.create({
   },
   listContainer: {
     flex: 4,
+  },
+  listItems: {
+    margin: 10,
+    padding: 10,
+    backgroundColor: "lightgrey",
+    borderRadius: 10,
   },
 });
